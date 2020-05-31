@@ -7,7 +7,8 @@ with open("Questions.txt",'r') as file:
 ask=''
 forblist=[]
 finished=False
-print("Welcome! This is Answer & Pick (AnsPick). Version 1.0.1    Author: Chinemo \n\n\n")
+print("Welcome! This is Answer & Pick (AnsPick). Version 1.0.1    Author: Chinemo \n\n")
+print("Let's start!")
 while (ask.lower() != "stop" and ask.lower() !='no' and ask.lower() != 'n' and finished == False):
     while True:
         pick=random.randint(0,len(lista)-1)
@@ -19,12 +20,13 @@ while (ask.lower() != "stop" and ask.lower() !='no' and ask.lower() != 'n' and f
                 finished=True
                 break
     if (finished == False):
-        print("Question: " + str(lista[pick]))
-        ask=(input("\nDo you want to continue? (y/n)").lower())
+        print("\nQuestion: " + str(lista[pick]))
+        ask=(input("\nDo you want to continue? (y/n):  ").lower())
     else:
         break
 print( "----------------------------------------------\n\n\n")
 print("Questions finished! You have done it!")
 print("Congratulations (and good luck!)")
+input("Insert something to continue.")
 
     
