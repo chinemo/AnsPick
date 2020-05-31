@@ -25,7 +25,7 @@ while (ask.lower() != "stop" and ask.lower() !='no' and ask.lower() != 'n' and f
     else:
         break
 print( "----------------------------------------------\n\n\n")
-print("Questions finished! You have done it!")
+print("Questions finished! You have answered:" + str(len(lista)) +  " questions !!")
 print("Congratulations (and good luck!)")
 input("Insert something to continue.")
 
