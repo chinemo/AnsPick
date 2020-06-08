@@ -1,7 +1,7 @@
 Are you tired to write down dozens and dozens of flash cards for your exams? 
 Do you feel your life meaningless?
 Use AnsPick!!!!!
-It will help you picking randomly (and without any duplicates) questions from "Questions.txt"
+It will help you picking randomly (and without any duplicates) questions from any txt file into the RESOURCES folder !!! 
 
 
 INSTRUCTIONS:
