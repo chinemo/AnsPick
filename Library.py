@@ -40,7 +40,7 @@ def readfile(path,ext,mylist):
         while(True):
             answer=input(">>>")
             answer=int(answer)
-            if answer in range(1,counter):
+            if answer in range(1,counter+1):
                 break
             else:
                 print("Insert a correct number!")
