@@ -1,32 +1,18 @@
-import random
+import Library
+END_ANSWERS=["no","n","stop","enough", "bye","bye!","ciao","arrivederci"]
 
-with open("Questions.txt",'r') as file: 
-    lista=file.readlines()
-    lista = [x.replace('\n', '') for x in lista]
 
-ask=''
-forblist=[]
-finished=False
-print("Welcome! This is Answer & Pick (AnsPick). Version 1.0.1    Author: Chinemo \n\n")
-print("Let's start!")
-while (ask.lower() != "stop" and ask.lower() !='no' and ask.lower() != 'n' and finished == False):
-    while True:
-        pick=random.randint(0,len(lista)-1)
-        if forblist.count(pick) == 0:
-            forblist.append(pick)
-            break
-        else:
-            if len(forblist)==len(lista):
-                finished=True
-                break
-    if (finished == False):
-        print("\nQuestion: " + str(lista[pick]))
-        ask=(input("\nDo you want to continue? (y/n):  ").lower())
-    else:
+
+
+
+print("Welcome! This is Answer & Pick (AnsPick). Version 1.1.0    Author: Chinemo \n\n")
+print("Let's start!\n")
+
+while(True):
+    Library.OpenFile()
+    ans=input("\nDo you want to open another file? (yes/no)").lower()
+    if (ans in END_ANSWERS):
         break
-print( "----------------------------------------------\n\n\n")
-print("Questions finished! You have answered:" + str(len(lista)) +  " questions !!")
-print("Congratulations (and good luck!)")
-#input("Insert something to continue.")
 
-    
+print("Congratulations (and good luck!)")
+print("Goodbye <3 ! ")
