@@ -6,6 +6,9 @@ REPOSITORY="Questions"
 EXTENSION='.txt'
 #RESOURCES=REPOSITORY+EXTENSION
 
+NEGATIVE_ANSWERS=["nie","no","wrong","I made a mistake","ops","no, sorry.","n", "0"]
+
+
 def checkfolder(path=REPOSITORY):
     if (os.path.exists(path)== False):
         os.makedirs(path)
@@ -40,7 +43,7 @@ def readfile(path,ext,mylist):
         while(True):
             answer=input(">>>")
             answer=int(answer)
-            if answer in range(1,counter+1):
+            if 1<=answer<=counter:
                 break
             else:
                 print("Insert a correct number!")
@@ -67,8 +70,9 @@ def PickingQuestions(file):
     ask=''
     forblist=[]
     finished=False
-    
-    while (ask.lower() != "stop" and ask.lower() !='no' and ask.lower() != 'n' and finished == False):
+    score=0
+    wrong_answers=[]
+    while ( finished == False):
         while True:
             pick=random.randint(0,len(questions)-1)
             if forblist.count(pick) == 0:
@@ -80,11 +84,27 @@ def PickingQuestions(file):
                     break
         if (finished == False):
             print("\nQuestion: " + str(questions[pick]))
-            ask=(input("\nDo you want to continue? (y/n):  ").lower())
+            ask=(input("\nHave you answered correctly(Be honest)? (y/n):  ").lower())
+            if (ask not in NEGATIVE_ANSWERS):
+                score += 1
+            else:
+                wrong_answers.append(questions[pick])
+
+            if(len(forblist) != len(questions)):
+                print("Actual Score: " + str(score) + " / " + str(len(forblist)) + "\n")
+            
+
         else:
             break
-    print( "----------------------------------------------\n\n\n")
-    print("Questions finished! You have answered:" + str( len(forblist)) +  " questions !!")
+    print( "\n----------------------------------------------\n\n\n")
+    print("Questions finished!")
+    print(" You have answered: (" + str(score) + " / " + str(len(questions))+  ") questions !!")
+    percentage=float(score/len(questions)*100)
+    percentage=round(percentage)
+    print(str(score) + " / " + str(len(questions))+ "--> "+str(percentage) +  " %")
+    print("You should repeat: ")
+    for wrong_answer in wrong_answers :
+        print( wrong_answer + "\n")
     
 
         
