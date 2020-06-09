@@ -1,6 +1,7 @@
 import os
 import glob
 import random
+
 #from functools import partial
 
 #print=partial(print,flush=True)
@@ -87,6 +88,7 @@ def PickingQuestions(file):
     dimension=len(scrumbled_questions)
 
     for question in scrumbled_questions:
+        #print( "\033[H\033[J")    
         print("\nQuestion: " + question)
         ask=(input("\nHave you answered correctly(Be honest)? (y/n):  \n>>>").lower())
         if (ask not in NEGATIVE_ANSWERS):
@@ -99,7 +101,7 @@ def PickingQuestions(file):
         
         counter += 1
     
-    
+    #print( "\033[H\033[J")    
     #print = partial(print, flush=False)
     print( "\n----------------------------------------------\n\n\n")
     print("Questions finished!")
