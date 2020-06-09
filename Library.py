@@ -1,7 +1,10 @@
 import os
 import glob
 import random
+#from functools import partial
 
+#print=partial(print,flush=True)
+#printf=functools.partial(print, flush=True)
 REPOSITORY="Questions"
 EXTENSION='.txt'
 #RESOURCES=REPOSITORY+EXTENSION
@@ -70,6 +73,7 @@ def PickingQuestions(file):
     Args:
         file (file): it is the file that it has to read
     """
+     
     questions=file.readlines()  #it extracts the lines  
     questions = [x.replace('\n', '') for x in questions] #it separates the lines with \n
     questions= list(filter(None, questions)) #it removes all the empty elements
@@ -96,12 +100,13 @@ def PickingQuestions(file):
         counter += 1
     
     
+    #print = partial(print, flush=False)
     print( "\n----------------------------------------------\n\n\n")
     print("Questions finished!")
     print("You have answered: (" + str(score) + " / " + str(dimension)+  ") questions !!")
     percentage=float(score/dimension*100)
     percentage=round(percentage)
-    print(str(score) + " / " + str(dimension)+ "--> "+str(percentage) +  " %")
+    print(str(score) + "/" + str(dimension)+ " -->  "+str(percentage) +  " %")
     print("You should repeat: \n")
     for wrong_answer in wrong_answers :
         print( wrong_answer + "\n")
