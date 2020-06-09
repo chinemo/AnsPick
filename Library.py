@@ -30,7 +30,8 @@ def readfile(path,ext,mylist):
         return -1
 
     if(dimension==1):
-        print("Opening the only file inside the folder: "+ str(mylist[0]))
+        cleaned_title=extractTitle(mylist[0],path,ext)
+        print("Opening the only file inside the folder: "+ str(cleaned_title))
         return 0
 
     else:
@@ -64,46 +65,44 @@ def OpenFile(path=REPOSITORY,ext=EXTENSION):
 
     
 def PickingQuestions(file): 
-    
-    questions=file.readlines()
-    questions = [x.replace('\n', '') for x in questions]
+    """it is the function that has to pick and shows the questions
+
+    Args:
+        file (file): it is the file that it has to read
+    """
+    questions=file.readlines()  #it extracts the lines  
+    questions = [x.replace('\n', '') for x in questions] #it separates the lines with \n
     questions= list(filter(None, questions)) #it removes all the empty elements
     ask=''
-    forblist=[]
-    finished=False
+    
     score=0
     wrong_answers=[]
-    while ( finished == False):
-        while True:
-            pick=random.randint(0,len(questions)-1)
-            if forblist.count(pick) == 0:
-                forblist.append(pick)
-                break
-            else:
-                if len(forblist)==len(questions):
-                    finished=True
-                    break
-        if (finished == False):
-            print("\nQuestion: " + str(questions[pick]))
-            ask=(input("\nHave you answered correctly(Be honest)? (y/n):  ").lower())
-            if (ask not in NEGATIVE_ANSWERS):
+
+    scrumbled_questions = random.sample(questions,len(questions))
+    counter =1
+    dimension=len(scrumbled_questions)
+
+    for question in scrumbled_questions:
+        print("\nQuestion: " + question)
+        ask=(input("\nHave you answered correctly(Be honest)? (y/n):  \n>>>").lower())
+        if (ask not in NEGATIVE_ANSWERS):
                 score += 1
-            else:
-                wrong_answers.append(questions[pick])
-
-            if(len(forblist) != len(questions)):
-                print("Actual Score: " + str(score) + " / " + str(len(forblist)) + "\n")
-            
-
         else:
-            break
+            wrong_answers.append(question)
+        
+        if counter != dimension:
+            print("\nActual Score: " + str(score) + " / " + str(counter) + "\n")
+        
+        counter += 1
+    
+    
     print( "\n----------------------------------------------\n\n\n")
     print("Questions finished!")
-    print(" You have answered: (" + str(score) + " / " + str(len(questions))+  ") questions !!")
-    percentage=float(score/len(questions)*100)
+    print("You have answered: (" + str(score) + " / " + str(dimension)+  ") questions !!")
+    percentage=float(score/dimension*100)
     percentage=round(percentage)
-    print(str(score) + " / " + str(len(questions))+ "--> "+str(percentage) +  " %")
-    print("You should repeat: ")
+    print(str(score) + " / " + str(dimension)+ "--> "+str(percentage) +  " %")
+    print("You should repeat: \n")
     for wrong_answer in wrong_answers :
         print( wrong_answer + "\n")
     
