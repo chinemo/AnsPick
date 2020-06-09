@@ -64,9 +64,10 @@ def OpenFile(path=REPOSITORY,ext=EXTENSION):
 
     
 def PickingQuestions(file): 
+    
     questions=file.readlines()
     questions = [x.replace('\n', '') for x in questions]
-
+    questions= list(filter(None, questions)) #it removes all the empty elements
     ask=''
     forblist=[]
     finished=False
