@@ -2,88 +2,101 @@ import os
 import glob
 import random
 
-#from functools import partial
-
-#print=partial(print,flush=True)
-#printf=functools.partial(print, flush=True)
 REPOSITORY="Questions"
-EXTENSION='.txt'
+EXTENSION='txt'
 #RESOURCES=REPOSITORY+EXTENSION
 
 NEGATIVE_ANSWERS=["nie","no","wrong","I made a mistake","ops","no, sorry.","n", "0"]
-
 
 def checkfolder(path=REPOSITORY):
     if (os.path.exists(path)== False):
         os.makedirs(path)
 
-def extractTitle(title,path=REPOSITORY,ext=EXTENSION,):
-    fullpath=path+"\\"
-    title=title.replace(fullpath,'')
-    title=title.replace(ext,'')
-    return title
 
-def readfile(path,ext,mylist):
-    checkfolder(path)
-
+class Library():   
+    def __init__(self,path=REPOSITORY,ext=EXTENSION):
+        self.path=path
+        checkfolder(self.path)
+        self.ext='.'+ext
+        self.mylist = [f for f in glob.glob(path+"/*"+ext)]
+        self.counter=-1
+        self.dimension=len(self.mylist)
+        self.questions=[]
     
-    dimension=len(mylist)
-    
-    if(dimension==0):
-        #print("There is no file inside the resource file")
-        return -1
+    def extractTitle(self,title):
+        fullpath=self.path+"\\"
+        title=title.replace(fullpath,'')
+        title=title.replace(self.ext,'')
+        return title
 
-    if(dimension==1):
-        cleaned_title=extractTitle(mylist[0],path,ext)
-        print("Opening the only file inside the folder: "+ str(cleaned_title))
-        return 0
+    def ChoosingFile(self):       
+        if(self.dimension==0):
+            #print("There is no file inside the resource file")
+            self.counter=-1
+            self.chosenfile=''
+            return False
+        if(self.dimension==1):
+            title=self.mylist[0]
+            cleaned_title=self.extractTitle(title)
+            print("Opening the only file inside the folder: "+ str(cleaned_title))
+            self.counter=0
+            self.chosenfile=self.mylist[0]
+            self.__scrubblingQuestions__()
+            return True
 
-    else:
-        print("\nWhich file do you want to open ? ")
-        counter=0
-        for title in mylist:
-            counter += 1
-            cleaned_title=extractTitle(title,path,ext)
-            print(str(counter) + ". " + cleaned_title)
-        while(True):
-            answer=input(">>>")
-            answer=int(answer)
-            if 1<=answer<=counter:
-                break
-            else:
-                print("Insert a correct number!")
+        else:
+            print("\nWhich file do you want to open ? ")
+            self.counter=0
+            for title in self.mylist:
+                self.counter += 1
+                cleaned_title=self.extractTitle(title)
+                print(str(self.counter) + ". " + cleaned_title)
+            while(True):
                 answer=input(">>>")
-        return (answer-1)
+                if answer.isnumeric() ==False:
+                    print("Insert a number!!")
+                    #answer=input(">>>")
+                else:
+                    answer=int(answer)
+                    if 1<=answer<=self.counter:
+                        break
+                    else:
+                        print("Insert a correct number!")
+                        #answer=input(">>>")
+             
+            self.counter=(answer-1)
+            self.chosenfile=self.mylist[self.counter]
+            self.__scrubblingQuestions__()
+            return True
 
-def OpenFile(path=REPOSITORY,ext=EXTENSION):
-    
-    mylist = [f for f in glob.glob(path+"/*"+ext)]
-    counter=readfile(path,ext,mylist)
-    if counter==-1:
-        print("There are no "+ ext+ " files into the "+path +" folder!")
-        return False
-    else: 
-        with open(mylist[counter],'r') as file:
-            PickingQuestions(file)
-        return True
+    def __scrubblingQuestions__(self):
+        if(self.chosenfile != ''):
+            with open(self.chosenfile, 'r') as file:
+                questions=file.readlines()  #it extracts the lines  
+            
+            questions = [x.replace('\n', '') for x in questions] #it separates the lines with \n
+            questions= list(filter(None, questions)) #it removes all the empty elements
+            self.questions= random.sample(questions,len(questions))
+            print("Questions scrumbled")
+        else:
+            print("Error, no file has been picked (NO INSIDE THE OBJECT!)!")
 
     
-def PickingQuestions(file): 
+
+
+
+    
+def PickingQuestions(library): 
     """it is the function that has to pick and shows the questions
 
     Args:
         file (file): it is the file that it has to read
     """
-     
-    questions=file.readlines()  #it extracts the lines  
-    questions = [x.replace('\n', '') for x in questions] #it separates the lines with \n
-    questions= list(filter(None, questions)) #it removes all the empty elements
-    ask=''
-    
+    ask=''    
     score=0
     wrong_answers=[]
 
-    scrumbled_questions = random.sample(questions,len(questions))
+    scrumbled_questions = library.questions
     counter =1
     dimension=len(scrumbled_questions)
 
