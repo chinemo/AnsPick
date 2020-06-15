@@ -77,7 +77,6 @@ class Library():
             questions = [x.replace('\n', '') for x in questions] #it separates the lines with \n
             questions= list(filter(None, questions)) #it removes all the empty elements
             self.questions= random.sample(questions,len(questions))
-            print("Questions scrumbled")
         else:
             print("Error, no file has been picked (NO INSIDE THE OBJECT!)!")
 
