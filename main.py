@@ -1,4 +1,7 @@
 from Library import Library,PickingQuestions
+
+
+
 END_ANSWERS=["no","n","stop","enough", "bye","bye!","ciao","arrivederci"]
 
 
@@ -11,6 +14,7 @@ if __name__ == "__main__":
     while(True):
         book=Library('Questions','txt')
         book.ChoosingFile()
+        #bisogna aggiungere qua la possibilità di andare a vedere se esiste una cache per il file creato
         PickingQuestions(book)
         ans=input("\nDo you want to open another file? (yes/no)").lower()
         if (ans in END_ANSWERS):
