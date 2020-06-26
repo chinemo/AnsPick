@@ -2,7 +2,9 @@
 .vs/
 .vscode/
 __pycache__
-
+Questions
+Questions/*.txt
+Questions/Test.txt
 
 
 # Compiled source #
