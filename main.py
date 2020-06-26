@@ -8,7 +8,7 @@ END_ANSWERS=["no","n","stop","enough", "bye","bye!","ciao","arrivederci"]
 
 
 if __name__ == "__main__":
-    print("Welcome! This is Answer & Pick (AnsPick). Version 1.1.0    Author: Chinemo \n\n")
+    print("Welcome! This is Answer & Pick (AnsPick). Version 1.2.2    Author: Chinemo \n\n")
     print("Let's start!\n")
 
     while(True):
