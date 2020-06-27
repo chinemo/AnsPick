@@ -81,6 +81,8 @@ class Library():
             questions = [x.replace('\n', '') for x in questions] #it separates the lines with \n
             for i in range(len(questions)):
                 questions[i]=questions[i].lstrip(' ')
+                if (len(questions[i])==0 or len(questions[i] == 1):
+                    questions.remove(questions[i])
             questions= list(filter(None, questions)) #it removes all the empty elements
             self.questions= random.sample(questions,len(questions))
         else:
